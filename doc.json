@@ -1,0 +1,405 @@
+{
+    "/movie": {
+        "POST": {
+            "description": "To add single movie to the system",
+            "parameters": [
+                {
+                    "name": "title",
+                    "in": "body",
+                    "description": "Title of the movie",
+                    "required": true,
+                    "type": "string"                   
+                },
+                {
+                    "name": "description",
+                    "in": "body",
+                    "description": "Description of the movie",
+                    "required": true,
+                    "type": "string"                    
+                },
+                {
+                    "name": "shortDescription",
+                    "in": "body",
+                    "description": "Short description of the movie",
+                    "required": true,
+                    "type": "string"                
+                },
+                {
+                    "name": "duration",
+                    "in": "body",
+                    "description": "Duration of the movie - will be in minutes",
+                    "required": true,
+                    "type": "integer"                   
+                },
+                {
+                    "name": "releaseDate",
+                    "in": "body",
+                    "description": "Date when movie will be released",
+                    "required": true,
+                    "type": "date"                    
+                },
+                {
+                    "name": "genres",
+                    "in": "body",
+                    "description": "Genres of the movie",
+                    "required": true,
+                    "type": "string"                   
+                },
+                {
+                    "name": "images",
+                    "in": "body",
+                    "description": "Images like poster, etc. of the movie",
+                    "required": false,
+                    "type": "object",
+                    "schema": {
+                        "coverImageUrl": { "type": "string" },
+                        "posterImageUrl": { "type": "string" }
+                    }                  
+                }
+            ],
+            "response": {
+                "success": {
+                    "data": {
+                        "type": "object"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                },
+                "error": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "isError": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    },
+
+    "/movie/:id": {
+        "PUT": {
+            "description": "To update movie",
+            "parameters": [
+                {
+                    "name": "title",
+                    "in": "body",
+                    "description": "Title of the movie",
+                    "required": true,
+                    "type": "string"                   
+                },
+                {
+                    "name": "description",
+                    "in": "body",
+                    "description": "Description of the movie",
+                    "required": true,
+                    "type": "string"                    
+                },
+                {
+                    "name": "shortDescription",
+                    "in": "body",
+                    "description": "Short description of the movie",
+                    "required": true,
+                    "type": "string"                
+                },
+                {
+                    "name": "duration",
+                    "in": "body",
+                    "description": "Duration of the movie - will be in minutes",
+                    "required": true,
+                    "type": "integer"                   
+                },
+                {
+                    "name": "releaseDate",
+                    "in": "body",
+                    "description": "Date when movie will be released",
+                    "required": true,
+                    "type": "date"                    
+                },
+                {
+                    "name": "genres",
+                    "in": "body",
+                    "description": "Genres of the movie",
+                    "required": true,
+                    "type": "string"                   
+                },
+                {
+                    "name": "images",
+                    "in": "body",
+                    "description": "Images like poster, etc. of the movie",
+                    "required": false,
+                    "type": "object",
+                    "schema": {
+                        "coverImageUrl": { "type": "string" },
+                        "posterImageUrl": { "type": "string" }
+                    }                  
+                }
+            ],
+            "response": {
+                "success": {
+                    "data": {
+                        "type": "object"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                },
+                "error": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "isError": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+
+        "GET": {
+            "description": "To get movie by id",
+            "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "description": "Movie's unique id",
+                  "required": true,
+                  "type": "string"
+                }                
+            ],
+            "response": {
+                "success": {
+                    "data": {
+                        "type": "object"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                },
+                "error": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "isError": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+
+        "DELETE": {
+            "description": "To delete movie by id",
+            "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "description": "Movie's unique id",
+                  "required": true,
+                  "type": "string"
+                }                
+            ],
+            "response": {
+                "success": {
+                    "data": {
+                        "type": "object"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                },
+                "error": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "isError": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    },
+
+    "/movies": {
+        "GET": {
+            "description": "To get list of movies - supports pagination and search",
+            "parameters": [
+                {
+                  "name": "search",
+                  "in": "query",
+                  "description": "pass an optional search string for looking up movie",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "offset",
+                  "in": "query",
+                  "description": "number of records to skip for pagination",
+                  "required": false,
+                  "type": "integer"
+                },
+                {
+                  "name": "limit",
+                  "in": "query",
+                  "description": "maximum number of records to return",
+                  "required": false,
+                  "type": "integer"
+                }
+            ],
+            "response": {
+                "success": {
+                    "data": {
+                        "type": "array"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                },
+                "error": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "isError": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+
+        "POST": {
+            "description": "To add multipl of movies to the system",
+            "parameters": [
+                {
+                    "name": "values",
+                    "in": "body",
+                    "description": "Array of movies object",
+                    "required": true,
+                    "type": "array",
+                    "schema": [
+                        {
+                            "title": { "type": "string" },
+                            "description": { "type": "string" },
+                            "shortDescription": { "type": "string" },
+                            "duration": { "type": "integer", "description": "Duration will ne in minutes" },
+                            "releaseDate": { "type": "date" },
+                            "genres": { "type": "string" },
+                            "images": { 
+                                "type": "object",
+                                "schema": {
+                                    "coverImageUrl": { "type": "string" },
+                                    "posterImageUrl": { "type": "string" }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                  "name": "offset",
+                  "in": "query",
+                  "description": "number of records to skip for pagination",
+                  "required": false,
+                  "type": "integer"
+                },
+                {
+                  "name": "limit",
+                  "in": "query",
+                  "description": "maximum number of records to return",
+                  "required": false,
+                  "type": "integer"
+                }
+            ],
+            "response": {
+                "success": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                },
+                "error": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "isError": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    },
+    
+    "/upload": {
+        "POST": {
+            "description": "To upload file to aws s3",
+            "parameters": [
+                {
+                    "name": "file",
+                    "in": "body",
+                    "description": "File to upload",
+                    "required": true,
+                    "type": "file"                   
+                }                
+            ],
+            "response": {
+                "success": {
+                    "data": {
+                        "type": "object"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                },
+                "error": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "isError": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}
