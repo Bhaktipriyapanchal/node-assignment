@@ -28,9 +28,15 @@ export default {
         try {
             req.body.releaseDate = new Date(req.body.releaseDate);
             const movie = new Movie(req.body);
+            console.log('=======================================');
+            console.log(movie);
+            console.log('=======================================');
             const result = await movie.save();
             return res.status(200).send({ status: 200, success: true, data: result });
         } catch (error) {
+            console.log('=======================================');
+            console.log(error)
+            console.log('=======================================');
             return res.status(500).send({ status: 500, isError: true, error: error, data: [] });
         }
     },
@@ -71,6 +77,21 @@ export default {
             return res.status(200).send({ status: 200, success: true, data: movie });
         } catch (error) {
             return res.status(500).send(error);
+        }
+    },
+
+    createMany: async (req, res) => {
+        try {
+            if (req.body.values && req.body.values.length) {
+                req.body.values.map(async (data) => {
+                    data.releaseDate = new Date(data.releaseDate);
+                    const movie = new Movie(data);
+                    await movie.save();
+                })
+                return res.status(200).send({ status: 200, success: true, message: 'Movies added!' });
+            }
+        } catch (error) {
+            return res.status(500).send({ status: 500, isError: true, error: error, data: [] });
         }
     }
 }

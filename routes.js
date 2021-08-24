@@ -10,5 +10,6 @@ router.get('/movie/:id', movieApi.get);
 router.put('/movie/:id', movieApi.update);
 router.delete('/movie/:id', movieApi.delete);
 router.post('/movie/:id/restore', movieApi.restore);
+router.post('/movies', movieApi.createMany);
 
 export default router;

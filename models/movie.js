@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 import mongoose_delete from 'mongoose-delete';
 
 const imagesSchema = new mongoose.Schema({
-    coverImageUrl: { type: String },
-    posterImageUrl: { type: String },
+    coverImageUrl: { type: String, trim: true },
+    posterImageUrl: { type: String, trim: true },
 })
 
 const movieSchema = new mongoose.Schema({
@@ -11,38 +11,41 @@ const movieSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     shortDescription: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
-    duration: {
-        type: Number, // in minutes
+    duration: { // in minutes
+        type: Number,
         required: true
     },
     releaseDate: {
         type: Date,
-        required: true
+        required: true,
+        trim: true
     },
     images: { 
         type: imagesSchema
     },
     genres: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     createdAt: {
-        type: Date
-        
+        type: Date     
     },
     modifiedAt: {
-        type: Date
-        
+        type: Date    
     }
 });
 
