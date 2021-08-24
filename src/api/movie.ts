@@ -1,8 +1,9 @@
 import Movie from '../models/movie';
 
 export default {
-    list: async ({ query }, res) => {
+    list: async (req: any, res: any) => {
         try {
+            const { query } = req;
             let limit = +query.limit || 5;
             let offset = +query.offset || 0;
             let search = {};
@@ -24,24 +25,19 @@ export default {
         }
     },
 
-    create: async (req, res) => {
+    create: async (req: any, res: any) => {
         try {
             req.body.releaseDate = new Date(req.body.releaseDate);
+            req.body.createdAt = new Date();
             const movie = new Movie(req.body);
-            console.log('=======================================');
-            console.log(movie);
-            console.log('=======================================');
             const result = await movie.save();
             return res.status(200).send({ status: 200, success: true, data: result });
         } catch (error) {
-            console.log('=======================================');
-            console.log(error)
-            console.log('=======================================');
             return res.status(500).send({ status: 500, isError: true, error: error, data: [] });
         }
     },
 
-    get: async (req, res) => {
+    get: async (req: any, res: any) => {
         try {
             const movie = await Movie.findById(req.params.id);
             return res.status(200).send({ status: 200, success: true, data: movie });
@@ -50,7 +46,7 @@ export default {
         }
     },
 
-    update: async (req, res) => {
+    update: async (req: any, res: any) => {
         try {
             delete req.body._id;
             const result = await Movie.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -60,9 +56,9 @@ export default {
         }
     },
 
-    delete: async (req, res) => {
+    delete: async (req: any, res: any) => {
         try {
-            const movie = await Movie.findById(req.params.id);
+            const movie: any = await Movie.findById(req.params.id);
             const result = await movie.delete();
             return res.status(200).send({ status: 200, success: true, data: result });
         } catch (error) {
@@ -70,20 +66,11 @@ export default {
         }
     },
 
-    restore: async (req, res) => {
-        try {
-            await Movie.restore({_id: req.params.id});
-            const movie = await Movie.findById(req.params.id);
-            return res.status(200).send({ status: 200, success: true, data: movie });
-        } catch (error) {
-            return res.status(500).send(error);
-        }
-    },
-
-    createMany: async (req, res) => {
+    createMany: async (req: any, res: any) => {
         try {
             if (req.body.values && req.body.values.length) {
-                req.body.values.map(async (data) => {
+                req.body.values.map(async (data: any) => {
+                    data.createdAt = new Date();
                     data.releaseDate = new Date(data.releaseDate);
                     const movie = new Movie(data);
                     await movie.save();

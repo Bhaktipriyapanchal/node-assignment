@@ -54,11 +54,6 @@ movieSchema.plugin(mongoose_delete, {
     overrideMethods: true
 })
 
-movieSchema.pre('save', function(next) {
-    this.createdAt = new Date();
-    return next();
-});
-
 movieSchema.pre('update', function(next) {
     this.update({}, { modifiedAt: new Date() }, { overwrite: true })
     this.setOptions({ overwrite: false })

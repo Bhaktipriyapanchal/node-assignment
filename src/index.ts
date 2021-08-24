@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import dbConnectString from './database';
 import routes from './routes';
@@ -9,6 +10,11 @@ const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
+app.use(cors({
+  credentials: true,
+  origin: '*',
+  methods: 'GET,POST,PUT,PATCH,DELETE,HEAD'
+}))
 app.use('/api', routes);
 
 // database connection
