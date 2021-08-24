@@ -1,4 +1,5 @@
 import Movie from '../models/movie';
+import { uploadFile } from '../services/s3';
 
 export default {
     list: async (req: any, res: any) => {
@@ -79,6 +80,15 @@ export default {
             }
         } catch (error) {
             return res.status(500).send({ status: 500, isError: true, error: error, data: [] });
+        }
+    },
+
+    upload: async (req: any, res: any) => {
+        try {
+            let result = await uploadFile(req.file);
+            return res.status(200).send({ status: 200, success: true, data: result });            
+        } catch (error) {
+            return res.status(500).send({ status: 500, isError: true, error: error, data: [] });            
         }
     }
 }
