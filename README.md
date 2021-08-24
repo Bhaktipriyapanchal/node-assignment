@@ -7,4 +7,4 @@ npm run dev
 It will run project on http://localhost:3001
 
 ## Docs
-Details about api endpoints can be found in docs.json file
+Details about api endpoints can be found in doc.json file
